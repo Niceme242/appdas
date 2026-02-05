@@ -333,7 +333,7 @@ const CompanyNews = () => {
           <div className="row align-items-center">
             <div className="col-lg-8">
               <h3 className="display-4 mb-3">
-                <span className="text-gradient">Actualités</span> & Innovations
+                <span className="text-gradient">Actualités & </span> Innovations
               </h3>
               <p className="lead mb-4">
                 Restez informé des dernières nouveautés, succès clients et innovations 
