@@ -60,7 +60,7 @@ const AiForest = () => {
     
     setTimeout(() => {
       // URL de votre APK sur votre serveur LWS
-      const APK_URL = 'https://das-c2725599.webdb02.lwspanel.com/apk/ai-forest.apk';
+      const APK_URL = 'https://github.com/Niceme242/appdas/releases/download/v1.0.0/ai-forest.apk';
       
       const link = document.createElement('a');
       link.href = APK_URL;
