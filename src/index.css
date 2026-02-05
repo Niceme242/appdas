@@ -1,0 +1,154 @@
+/* SOLUTION SIMPLE POUR MENU MOBILE */
+@media (max-width: 768px) {
+  /* 1. Empêcher le menu de se fermer automatiquement */
+  .navbar-collapse {
+    transition: none !important;
+  }
+  
+  /* 2. Garder le menu ouvert quand on clique dessus */
+  .navbar-nav {
+    pointer-events: auto !important;
+  }
+  
+  /* 3. Rendre "Nos Solutions" non-cliquable comme lien, mais garder le dropdown */
+  .dropdown-toggle.nav-link {
+    pointer-events: none !important;
+  }
+  
+  /* 4. Rendre SEULEMENT la flèche du dropdown cliquable */
+  .dropdown-toggle.nav-link::after {
+    pointer-events: auto !important;
+    margin-left: 10px;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  /* 5. AI-Forest Planner doit être visible et cliquable */
+  .ai-forest-item {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    order: 100; /* Met en bas */
+    margin-top: 10px;
+    padding: 12px !important;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(59, 130, 246, 0.1)) !important;
+    border-radius: 8px;
+  }
+  
+  .ai-forest-item .nav-link {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+}
+
+:root {
+  --logo-blue:#212040;
+  --logo-vert: #f3ab46 ;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Gestion des couleurs golabales   */
+
+.bg-logo-blue {
+  background-color: var(--logo-blue) !important;
+}
+.text-logo-blue {
+  color: var(--logo-blue) !important;
+}
+
+.bg-logo-vert {
+  background-color:var(--logo-vert) !important;
+}
+.text-logo-vert {
+  color: var(--logo-vert) !important;
+}
+.degradient-logo-vert {
+  background: linear-gradient(90deg, #8b5cf6, var(--logo-blue) 100%)!important;
+  
+  -webkit-text-fill-color: white;
+}
+.justification {
+  text-align: justify !important;
+}
+.tail-image {
+  height: 500px !important;
+  object-fit: cover !important;
+}
+
+@media (max-width: 768px) {
+  .affichage {
+    display: none;
+  }
+  .tail-image {
+    height: 250px !important;
+    border-radius: 10% 5% 20% 30% !important;
+  }
+}
+
+/* LOGO HEADER — FORME ORIGINALE */
+.navbar-brand .header-logo {
+  height: 50px;        /* taille contrôlée */
+  width: auto;         /* respecte les proportions */
+  object-fit: contain; /* aucune déformation */
+  transition: transform 0.3s ease;
+}
+
+/* Effet léger au hover (optionnel mais pro) */
+.navbar-brand .header-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .navbar-brand .header-logo {
+    height: 42px;
+  }
+}
+
+/* ========================= */
+/* AI-Forest Planner Header */
+/* ========================= */
+
+.ai-forest-item {
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.15),
+    rgba(59, 130, 246, 0.15)
+  );
+  transition: all 0.3s ease;
+}
+
+.ai-forest-item:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.3),
+    rgba(59, 130, 246, 0.3)
+  );
+  transform: translateX(4px);
+}
+
+.ai-pill {
+  background: linear-gradient(135deg, #22c55e, #3b82f6);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 6px;
+  border-radius: 6px;
+}
+
+
