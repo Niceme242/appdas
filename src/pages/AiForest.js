@@ -9,7 +9,7 @@ const AiForest = () => {
   const [downloadsCount, setDownloadsCount] = useState(1000);
   const [isDownloading, setIsDownloading] = useState(false);
 
-  // Décompte de 15 jours
+  // Décompte de 21 jours
   useEffect(() => {
     const launchDate = new Date();
     launchDate.setDate(launchDate.getDate() + 21);
@@ -53,14 +53,17 @@ const AiForest = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Téléchargement Android
+  // Téléchargement Android - MODIFIÉ ICI
   const handleAndroidDownload = () => {
     setIsDownloading(true);
     setDownloadsCount(prev => prev + 1);
     
     setTimeout(() => {
+      // URL de votre APK sur votre serveur LWS
+      const APK_URL = 'https://das-c2725599.webdb02.lwspanel.com/apk/ai-forest.apk';
+      
       const link = document.createElement('a');
-      link.href = '/ai-forest.apk';
+      link.href = APK_URL;
       link.download = 'AI-Forest Planner.apk';
       document.body.appendChild(link);
       link.click();
@@ -75,7 +78,7 @@ const AiForest = () => {
           <svg viewBox="0 0 24 24" width="24" height="24">
             <path fill="#27AE60" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
           </svg>
-          <span>Téléchargement réussi. L’alerte Google est normale pour cette version. Vous pouvez continuer en toute confiance.</span>
+          <span>Téléchargement réussi. L'alerte Google est normale pour cette version. Vous pouvez continuer en toute confiance.</span>
         </div>
       `;
       document.body.appendChild(notification);
@@ -92,15 +95,7 @@ const AiForest = () => {
     <div className="ai-forest">
       {/* Header */}
       <header className="header">
-        <div className="container">
-          <div className="header-content">
-            <div className="logo">
-              <div className="logo-icon">           
-              </div>
-             
-            </div>
-          </div>
-        </div>
+      
       </header>
 
       {/* Hero Section avec Background Agriculteurs */}
@@ -129,6 +124,9 @@ const AiForest = () => {
                   className="main-logo-img"
                 />
                 <div className="main-logo-text">
+                  {/* Ajout du texte du logo principal */}
+                  <span className="main-logo-primary">AI-FOREST</span>
+                  <span className="main-logo-subtitle">PLANNER</span>
                 </div>
               </div>
             </div>
@@ -426,6 +424,7 @@ const AiForest = () => {
           </div>
         </div>
       </section>
+
     </div>
   );
 };
