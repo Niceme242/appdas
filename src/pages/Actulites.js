@@ -182,7 +182,7 @@ const CompanyNews = () => {
       ],
       date: "05 Février 2026",
       readTime: "8 min",
-      image: "/pages/ai-forest-planner.jpg",
+      image: "/Flyer.jpg",
       content: `
         <h3>Introduction</h3>
         <p>
