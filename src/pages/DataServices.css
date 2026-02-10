@@ -328,9 +328,6 @@
   font-weight: 500;
 }
 
-.service-features {
-  margin-bottom: 2rem;
-}
 
 .feature {
   display: flex;
@@ -683,9 +680,7 @@
   opacity: 0.9;
 }
 
-.details-body {
-  padding: 2rem;
-}
+
 
 .details-text {
   color: #475569;
@@ -750,7 +745,6 @@
 }
 
 .nav-button {
-  padding: 0.75rem 1.5rem;
   background: white;
   border: 2px solid #e2e8f0;
   color: #64748b;

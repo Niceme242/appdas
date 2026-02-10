@@ -474,8 +474,8 @@ const LandingPage = () => {
                   DAS <span className="text-primary">(Data Analytic Solutions)</span>
                 </h3>
                 <p className="mb-4 justification">
-                  DAS est une entreprise spécialisée dans les solutions numériques destinées aux entreprises et aux particuliers. Nous sommes passionnés par l'innovation technologique et déterminés à aider les entreprises à relever leurs défis en tirant parti des outils numériques et de l'intelligence artificielle.
-                </p>
+                DAS est une entreprise spécialisée dans les solutions numériques et informatiques pour les entreprises et les particuliers au Congo et en Afrique. Nous accompagnons nos clients dans leur transformation digitale grâce à des outils numériques performants et à des solutions innovantes basées sur l’intelligence artificielle, afin de les aider à relever efficacement leurs défis technologiques.
+              </p>
 
                 <div className="mb-4">
                   {aboutPoints.map((point, index) => (
@@ -612,7 +612,8 @@ const LandingPage = () => {
                       <div className="col-4">
                         <div className="p-3">
                           <FaDatabase size={32} className="text-info mb-2" />
-                          <h5 className="h6 fw-bold mb-1">67+</h5>
+                          <h5 className="h6 fw-bold mb-1">67``````````````````````````````````````````````````
+                            +</h5>
                           <small className="text-muted">Projets réalisés</small>
                         </div>
                       </div>

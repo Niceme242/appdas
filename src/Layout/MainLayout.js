@@ -25,10 +25,17 @@ export default function MainLayout() {
             style={{ height: "420px", objectFit: "cover" }}
           />
           <Carousel.Caption>
-             <h3>Connectez-vous à l'avenir</h3>
-            <p>Des solutions informatiques intelligentes, créées par des experts pour propulser votre entreprise.</p>
+            <h3 style={{ color: "#ffffff", fontWeight: "bold" }}>
+              DAS : Solutions numériques et informatiques au Congo et en Afrique
+            </h3>
+            <p style={{ color: "#ffffff" }}>
+              Des solutions informatiques intelligentes, créées par des experts pour propulser votre entreprise.
+            </p>
           </Carousel.Caption>
+
+
         </Carousel.Item>
+
         <Carousel.Item>
           <img
             className="d-block w-100"
@@ -36,10 +43,16 @@ export default function MainLayout() {
             alt="Bannière 1"
             style={{ height: "420px", objectFit: "cover" }}
           />
-          <Carousel.Caption>
-            <h3>Connectez-vous à l'avenir</h3>
-            <p>Des solutions informatiques intelligentes, créées par des experts pour propulser votre entreprise.</p>
+         <Carousel.Caption>
+            <h3 style={{ color: "#ffffff", fontWeight: "bold" }}>
+              DAS : Solutions numériques et informatiques au Congo et en Afrique
+            </h3>
+            <p style={{ color: "#fefefe" }}>
+              Des solutions informatiques intelligentes, créées par des experts pour propulser votre entreprise.
+            </p>
           </Carousel.Caption>
+
+
         </Carousel.Item>
 
 
