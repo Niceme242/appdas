@@ -5,18 +5,18 @@ const links = [
   { url: '/', changefreq: 'daily', priority: 1.0 },
   { url: '/actualites', changefreq: 'monthly', priority: 0.8 },
   { url: '/AiForest', changefreq: 'monthly', priority: 0.8 },
-  { url: '/', changefreq: 'monthly', priority: 0.8 },
   { url: '/nos_services', changefreq: 'monthly', priority: 0.8 },
   { url: '/contacts', changefreq: 'monthly', priority: 0.8 },
-  { url: '/', changefreq: 'monthly', priority: 0.8 },
 ];
 
 const sitemap = new SitemapStream({ hostname: 'https://www.dascongo.tech' });
 
-streamToPromise(sitemap).then(sm => {
-  fs.writeFileSync('public/sitemap.xml', sm.toString());
-});
-
-// Add all links
+// Ajouter les liens au sitemap
 links.forEach(link => sitemap.write(link));
 sitemap.end();
+
+// Écrire le fichier sitemap.xml dans public
+streamToPromise(sitemap).then(sm => {
+  fs.writeFileSync('public/sitemap.xml', sm.toString());
+  console.log("Sitemap généré avec succès !");
+});
