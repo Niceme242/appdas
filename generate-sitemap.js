@@ -6,12 +6,12 @@ const links = [
   { url: '/actualites', changefreq: 'monthly', priority: 0.8 },
   { url: '/AiForest', changefreq: 'monthly', priority: 0.8 },
   { url: '/nos_services', changefreq: 'monthly', priority: 0.8 },
-  { url: '/contacts', changefreq: 'monthly', priority: 0.8 },
+  { url: '/contacts', changefreq: 'monthly', priority: 0.8 }
 ];
 
-const sitemap = new SitemapStream({ hostname: 'https://www.dascongo.tech' });
+const sitemap = new SitemapStream({ hostname: 'https://das-congo.tech' });
 
-// Ajouter les liens au sitemap
+// Ajouter les liens
 links.forEach(link => sitemap.write(link));
 sitemap.end();
 
