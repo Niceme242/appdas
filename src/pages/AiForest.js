@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import aiImage from './ai.png'; // Import de l'image ai.png
-import backgroundImage from './2.jpg'; // Nouvelle image
+import aiImage from './ai.png';
+import backgroundImage from './2.jpg';
 import './AiForest.css';
 
 const AiForest = () => {
@@ -9,14 +9,28 @@ const AiForest = () => {
   const [downloadsCount, setDownloadsCount] = useState(1000);
   const [isDownloading, setIsDownloading] = useState(false);
 
-  // Décompte de 21 jours
+  // Décompte de 21 jours - CORRIGÉ avec localStorage
   useEffect(() => {
-    const launchDate = new Date();
-    launchDate.setDate(launchDate.getDate() + 21);
+    // Récupérer la date stockée ou en créer une nouvelle
+    let launchDate = localStorage.getItem('launchDate');
+    
+    if (!launchDate) {
+      // Première visite : créer la date et la stocker
+      const newLaunchDate = new Date();
+      newLaunchDate.setDate(newLaunchDate.getDate() + 21);
+      launchDate = newLaunchDate.toISOString();
+      localStorage.setItem('launchDate', launchDate);
+      console.log('Nouvelle date de lancement créée:', new Date(launchDate).toString());
+    } else {
+      console.log('Date de lancement existante:', new Date(launchDate).toString());
+    }
+    
+    // Convertir la chaîne en objet Date
+    const targetDate = new Date(launchDate);
     
     const timer = setInterval(() => {
       const now = new Date();
-      const difference = launchDate - now;
+      const difference = targetDate - now;
       
       if (difference > 0) {
         const days = Math.floor(difference / (1000 * 60 * 60 * 24));
@@ -25,13 +39,18 @@ const AiForest = () => {
         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
         
         setTimeLeft({ days, hours, minutes, seconds });
+        
+        // Debug (optionnel)
+        console.log(`Temps restant: ${days}j ${hours}h ${minutes}m ${seconds}s`);
       } else {
         clearInterval(timer);
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        localStorage.removeItem('launchDate'); // Nettoyer quand le décompte est fini
       }
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, []); // Le tableau vide est important !
 
   // Animation d'apparition au scroll
   useEffect(() => {
@@ -53,13 +72,12 @@ const AiForest = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Téléchargement Android - MODIFIÉ ICI
+  // Téléchargement Android
   const handleAndroidDownload = () => {
     setIsDownloading(true);
     setDownloadsCount(prev => prev + 1);
     
     setTimeout(() => {
-      // URL de votre APK sur votre serveur LWS
       const APK_URL = 'https://github.com/Niceme242/appdas/releases/download/v1.0.0/ai-forest.apk';
       
       const link = document.createElement('a');
@@ -70,7 +88,6 @@ const AiForest = () => {
       document.body.removeChild(link);
       setIsDownloading(false);
       
-      // Notification de succès
       const notification = document.createElement('div');
       notification.className = 'download-notification';
       notification.innerHTML = `
@@ -78,7 +95,7 @@ const AiForest = () => {
           <svg viewBox="0 0 24 24" width="24" height="24">
             <path fill="#27AE60" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
           </svg>
-          <span>Téléchargement en cours. L'alerte Google est normale pour cette version. Vous pouvez insatller en toute confiance.</span>
+          <span>Téléchargement en cours. L'alerte Google est normale pour cette version. Vous pouvez installer en toute confiance.</span>
         </div>
       `;
       document.body.appendChild(notification);
@@ -90,6 +107,7 @@ const AiForest = () => {
       }, 3000);
     }, 500);
   };
+
 
   return (
     <div className="ai-forest">
@@ -145,7 +163,7 @@ const AiForest = () => {
               Optimisez vos rendements, réduisez vos coûts et adoptez des pratiques durables.
             </p>
 
-            {/* Décompte */}
+            {/* Décompte AVEC SECONDES */}
             <div className="countdown-section" ref={el => sectionRefs.current[3] = el}>
               <div className="countdown-label">Disponible sur les stores dans</div>
               <div className="countdown">
@@ -162,6 +180,11 @@ const AiForest = () => {
                 <div className="countdown-item">
                   <span className="countdown-value">{timeLeft.minutes.toString().padStart(2, '0')}</span>
                   <span className="countdown-unit">Minutes</span>
+                </div>
+                <div className="countdown-separator">:</div>
+                <div className="countdown-item">
+                  <span className="countdown-value">{timeLeft.seconds.toString().padStart(2, '0')}</span>
+                  <span className="countdown-unit">Secondes</span>
                 </div>
               </div>
             </div>
@@ -305,7 +328,7 @@ const AiForest = () => {
         </div>
       </section>
 
-      {/* Section Stores - Bientôt disponible DANS UN SEUL CONTENEUR */}
+      {/* Section Stores - Bientôt disponible AVEC SECONDES */}
       <section className="stores">
         <div className="container">
           <div className="stores-container" ref={el => sectionRefs.current[13] = el}>
@@ -327,6 +350,11 @@ const AiForest = () => {
                   <div className="store-countdown">
                     <span className="store-days">{timeLeft.days}</span>
                     <span className="store-label">jours</span>
+                    <div className="store-time-detail">
+                      <span>{timeLeft.hours.toString().padStart(2, '0')}h</span>
+                      <span>{timeLeft.minutes.toString().padStart(2, '0')}m</span>
+                      <span>{timeLeft.seconds.toString().padStart(2, '0')}s</span>
+                    </div>
                   </div>
                   <div className="store-note">Android 8.0+</div>
                 </div>
@@ -342,6 +370,11 @@ const AiForest = () => {
                   <div className="store-countdown">
                     <span className="store-days">{timeLeft.days}</span>
                     <span className="store-label">jours</span>
+                    <div className="store-time-detail">
+                      <span>{timeLeft.hours.toString().padStart(2, '0')}h</span>
+                      <span>{timeLeft.minutes.toString().padStart(2, '0')}m</span>
+                      <span>{timeLeft.seconds.toString().padStart(2, '0')}s</span>
+                    </div>
                   </div>
                   <div className="store-note">iOS 12.0+</div>
                 </div>
@@ -366,7 +399,7 @@ const AiForest = () => {
         </div>
       </section>
 
-      {/* Final CTA */}
+      {/* Final CTA AVEC SECONDES */}
       <section className="final-cta">
         <div className="container">
           <div className="final-content" ref={el => sectionRefs.current[21] = el}>
@@ -390,6 +423,11 @@ const AiForest = () => {
                   <div className="time-block">
                     <span className="time-value">{timeLeft.minutes.toString().padStart(2, '0')}</span>
                     <span className="time-label">minutes</span>
+                  </div>
+                  <div className="time-separator">:</div>
+                  <div className="time-block">
+                    <span className="time-value">{timeLeft.seconds.toString().padStart(2, '0')}</span>
+                    <span className="time-label">secondes</span>
                   </div>
                 </div>
                 <p className="countdown-note">Avant le lancement officiel sur les stores</p>

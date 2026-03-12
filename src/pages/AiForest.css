@@ -1279,3 +1279,55 @@ body {
     background: #fff;
   }
 }
+
+/* Pour le store-time-detail */
+.store-time-detail {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Ajustement pour le countdown principal */
+.countdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.countdown-item {
+  min-width: 80px; /* Plus large pour les secondes */
+}
+
+/* Pour mobile */
+@media (max-width: 768px) {
+  .countdown-item {
+    min-width: 60px;
+  }
+  
+  .countdown-value {
+    font-size: 1.8rem;
+  }
+  
+  .countdown-final .time-block {
+    min-width: 50px;
+  }
+}
+
+/* Ajustements pour le countdown final */
+.countdown-final {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.time-block {
+  min-width: 70px;
+  text-align: center;
+}
