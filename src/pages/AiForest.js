@@ -78,7 +78,7 @@ const AiForest = () => {
     setDownloadsCount(prev => prev + 1);
     
     setTimeout(() => {
-      const APK_URL = 'https://github.com/Niceme242/appdas/releases/download/v1.0.0/ai-forest.apk';
+      const APK_URL = 'https://github.com/Niceme242/appdas/releases/download/v1.1.0/Ai-Forest-app.apk';
       
       const link = document.createElement('a');
       link.href = APK_URL;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
 import Logoharvre from "../assets/img/LeHavreMassissia.png";
 
 const sections = ["/", "nos_services", "actualites", "contacts"];
@@ -18,11 +18,8 @@ export default function NavbarClinique() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
-      // Fond blanc après 60px de scroll
       setScrolling(currentScrollY > 60);
-      
-      // Section active
+
       let current = "home";
       sections.forEach((id) => {
         const section = document.getElementById(id);
@@ -31,29 +28,42 @@ export default function NavbarClinique() {
         if (rect.top <= 120 && rect.bottom >= 120) current = id;
       });
       setActiveSection(current);
-      
-      // Cacher la navbar quand on scroll vers le bas, la montrer quand on remonte
+
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
         setNavbarVisible(false);
       } else if (currentScrollY < lastScrollY) {
         setNavbarVisible(true);
       }
-      
       setLastScrollY(currentScrollY);
     };
-    
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
-  
-  // Fonction pour réafficher la navbar SANS scroller
-  const toggleNavbar = () => {
+
+  const closeAll = () => {
+    setExpanded(false);
+    setShowServices(false);
     setNavbarVisible(true);
+  };
+
+  // Détecter si on est sur mobile
+  const isMobile = () => window.innerWidth < 992;
+
+  // Desktop : hover. Mobile : tap sur le bouton "Nos solutions"
+  const handleSolutionsEnter = () => {
+    if (!isMobile()) setShowServices(true);
+  };
+  const handleSolutionsLeave = () => {
+    if (!isMobile()) setShowServices(false);
+  };
+  const handleSolutionsClick = () => {
+    if (isMobile()) setShowServices((v) => !v);
   };
 
   return (
     <>
-      {/* Bouton flottant PÉTIT pour réafficher la navbar */}
+      {/* Bouton flottant pour réafficher la navbar */}
       <AnimatePresence>
         {!navbarVisible && (
           <motion.div
@@ -61,25 +71,24 @@ export default function NavbarClinique() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.3 }}
-            className="position-fixed bottom-3 end-3 z-9999" // end-3 au lieu de end-4
-            style={{ zIndex: 9999 }}
+            style={{ position: "fixed", bottom: 16, right: 16, zIndex: 9999 }}
           >
             <Button
               variant="primary"
-              className="rounded-circle shadow-sm" // shadow-sm au lieu de shadow-lg
+              className="rounded-circle shadow-sm"
               style={{
-                width: '50px',  // Réduit de 60px à 50px
-                height: '50px', // Réduit de 60px à 50px
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#007bff',
-                padding: 0, // Pas de padding supplémentaire
-                border: '2px solid white' // Bordure fine pour mieux le voir
+                width: 50,
+                height: 50,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#007bff",
+                padding: 0,
+                border: "2px solid white",
               }}
-              onClick={toggleNavbar}
+              onClick={() => setNavbarVisible(true)}
             >
-              <FaBars size={18} className="text-white" /> {/* Icône plus petite */}
+              <FaBars size={18} className="text-white" />
             </Button>
           </motion.div>
         )}
@@ -89,26 +98,25 @@ export default function NavbarClinique() {
       <motion.div
         ref={navbarRef}
         initial={{ y: 0 }}
-        animate={{ 
-          y: navbarVisible ? 0 : -100,
-          opacity: navbarVisible ? 1 : 0
-        }}
+        animate={{ y: navbarVisible ? 0 : -100, opacity: navbarVisible ? 1 : 0 }}
         transition={{ duration: 0.3 }}
         className={`fixed-top ${scrolling ? "bg-white shadow-sm" : "bg-transparent text-white"}`}
         style={{ zIndex: 1030 }}
-        onMouseEnter={() => {
-          if (window.innerWidth >= 992) {
-            setNavbarVisible(true);
-          }
-        }}
+        onMouseEnter={() => { if (window.innerWidth >= 992) setNavbarVisible(true); }}
       >
         {/* Top bar */}
         <div className="d-flex justify-content-between px-4 py-1 bg-light small">
-          <h7 className="text-logo-blue fs-7 fw-bold"></h7>
-          <div className="d-flex gap-4"> 
-            <span className="text-logo-blue fs-7 fw-bold affichage text-muted">1253 Rue NKO, Plateau des 15 ans, Brazzaville</span> 
-            <span className="text-logo-blue fs-7 fw-bold text-muted">infos@das-congo.tech</span>
-            <span className="text-logo-blue fs-7 fw-bold text-muted">+242 06 540 99 59</span>
+          <h6 className="text-logo-blue fw-bold mb-0"></h6>
+          <div className="d-flex gap-4">
+            <span className="text-logo-blue fw-bold affichage text-muted" style={{ fontSize: 12 }}>
+              1253 Rue NKO, Plateau des 15 ans, Brazzaville
+            </span>
+            <span className="text-logo-blue fw-bold text-muted" style={{ fontSize: 12 }}>
+              infos@das-congo.tech
+            </span>
+            <span className="text-logo-blue fw-bold text-muted" style={{ fontSize: 12 }}>
+              +242 06 540 99 59
+            </span>
           </div>
         </div>
 
@@ -116,14 +124,10 @@ export default function NavbarClinique() {
         <Navbar expand="lg" expanded={expanded} className="">
           <Container>
             <Navbar.Brand href="/" className="fw-bold fs-4">
-              <img
-                src={Logoharvre}
-                alt="Logo DAS"
-                className="header-logo"
-              />
+              <img src={Logoharvre} alt="Logo DAS" className="header-logo" />
             </Navbar.Brand>
 
-            <Navbar.Toggle onClick={() => setExpanded(!expanded)}>
+            <Navbar.Toggle onClick={() => { setExpanded((v) => !v); setShowServices(false); }}>
               {expanded ? <FaTimes /> : <FaBars />}
             </Navbar.Toggle>
 
@@ -133,10 +137,7 @@ export default function NavbarClinique() {
                   <Nav.Link
                     key={sec}
                     href={`${sec}`}
-                    onClick={() => {
-                      setExpanded(false);
-                      setNavbarVisible(true);
-                    }}
+                    onClick={closeAll}
                     className={`
                       ${scrolling ? "text-dark" : "text-white"}
                       ${activeSection === sec ? "fw-bold text-decoration-underline" : ""}
@@ -148,38 +149,94 @@ export default function NavbarClinique() {
                      "Contact"}
                   </Nav.Link>
                 ))}
-                
-                {/* Menu Services */}
-                <div 
-                  className="nav-item dropdown" 
-                  onMouseEnter={() => setShowServices(true)} 
-                  onMouseLeave={() => setShowServices(false)}
-                  onClick={() => setExpanded(false)}
+
+                {/* ── NOS SOLUTIONS — CORRIGÉ ── */}
+                <div
+                  className="nav-item dropdown"
+                  onMouseEnter={handleSolutionsEnter}
+                  onMouseLeave={handleSolutionsLeave}
                 >
+                  {/* Bouton "Nos solutions" */}
                   <Nav.Link
-                    as="a"
-                    href="#services"
+                    as="button"
                     role="button"
-                    className={`
-                      ${scrolling ? "text-dark dropdown-toggle" : "text-white"}
-                    `}
+                    onClick={handleSolutionsClick}
+                    className={`border-0 bg-transparent d-flex align-items-center gap-1 ${
+                      scrolling ? "text-dark" : "text-white"
+                    }`}
+                    style={{ cursor: "pointer" }}
                   >
-                    Nos solutions <span className="caret"></span>  
+                    Nos solutions
+                    <FaChevronDown
+                      size={11}
+                      style={{
+                        marginLeft: 4,
+                        transition: "transform 0.2s",
+                        transform: showServices ? "rotate(180deg)" : "rotate(0deg)",
+                      }}
+                    />
                   </Nav.Link>
-                  
+
+                  {/* ✅ DROPDOWN — visible sur desktop (hover) ET mobile (tap) */}
                   {showServices && (
-                    <div className="dropdown-menu show">
+                    <div
+                      className="dropdown-menu show"
+                      style={{
+                        // Mobile : affiché inline dans le menu déroulant
+                        position: isMobile() ? "static" : "absolute",
+                        border: "0.5px solid #9FE1CB",
+                        borderRadius: 12,
+                        padding: 8,
+                        marginTop: isMobile() ? 4 : 0,
+                        minWidth: 240,
+                        background: "#F0FBF6",
+                        boxShadow: isMobile() ? "none" : "0 4px 16px rgba(0,0,0,0.08)",
+                      }}
+                    >
+                      {/* ── AI-Forest Planner ── */}
                       <a
-                        className="dropdown-item ai-forest-item d-flex align-items-center"
+                        className="dropdown-item d-flex align-items-center gap-3 py-2"
                         href="/AiForest"
-                        onClick={() => setNavbarVisible(true)}
+                        onClick={closeAll}
+                        style={{ borderRadius: 8 }}
                       >
-                        <span className="ai-pill">AI</span>
-                        <span className="ms-2 fw-semibold">Forest Planner</span>
+                        <div
+                          style={{
+                            width: 36,
+                            height: 36,
+                            borderRadius: 8,
+                            background: "#E1F5EE",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexShrink: 0,
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: 10,
+                              height: 10,
+                              borderRadius: "50%",
+                              background: "#1D9E75",
+                            }}
+                          />
+                        </div>
+                        <div>
+                          <div style={{ fontWeight: 700, fontSize: 14, color: "#085041" }}>
+                            AI-Forest Planner
+                          </div>
+                          <div style={{ fontSize: 11, color: "#0F6E56" }}>
+                            Votre assistant IA.
+                          </div>
+                        </div>
                       </a>
+
+                      {/* Ajoute d'autres solutions ici en copiant le bloc ci-dessus */}
                     </div>
                   )}
                 </div>
+                {/* ── FIN NOS SOLUTIONS ── */}
+
               </Nav>
             </Navbar.Collapse>
           </Container>
