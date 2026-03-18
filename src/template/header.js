@@ -106,7 +106,7 @@ export default function NavbarClinique() {
       >
         {/* Top bar */}
         <div className="d-flex justify-content-between px-4 py-1 bg-light small">
-          <h6 className="text-logo-blue fw-bold mb-0"></h6>
+         <span className="text-logo-blue fw-bold mb-0"></span>
           <div className="d-flex gap-4">
             <span className="text-logo-blue fw-bold affichage text-muted" style={{ fontSize: 12 }}>
               1253 Rue NKO, Plateau des 15 ans, Brazzaville
