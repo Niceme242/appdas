@@ -112,7 +112,7 @@ export default function NavbarClinique() {
               1253 Rue NKO, Plateau des 15 ans, Brazzaville
             </span>
             <span className="text-logo-blue fw-bold text-muted" style={{ fontSize: 12 }}>
-              infos@das-congo.tech
+              info@das-congo.tech
             </span>
             <span className="text-logo-blue fw-bold text-muted" style={{ fontSize: 12 }}>
               +242 06 540 99 59
